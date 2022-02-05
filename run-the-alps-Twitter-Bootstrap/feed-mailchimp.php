@@ -42,8 +42,6 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 		<!-- Start loop -->
 		<?php while( have_posts()) : the_post();
 		
-		$email = get_the_author_meta( 'email');
-    $author = get_the_author();
         
     $postimages = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'embed-image' );
     // Check for images
@@ -58,7 +56,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 				<title><?php the_title_rss(); ?></title>
 				<link><?php the_permalink_rss(); ?></link>
 				<guid isPermaLink="false"><?php the_guid(); ?></guid>
-				<author><?php echo $email ?><?php echo ' ('.$author.')' ?></author>
+				<author><![CDATA[<?php the_author(); ?>]]></author>
 				<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
 				<description><![CDATA[<?php echo '<a href="' . get_permalink() . '"><img src="' . $postimage . '" style="width:100%;margin:10px 0;" alt="" /></a>' ?>
 					<?php echo get_the_content();?>]]></description>
